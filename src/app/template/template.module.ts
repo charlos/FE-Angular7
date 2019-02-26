@@ -7,7 +7,7 @@ import { MainComponent } from './shell/main/main.component';
 import { MenuComponent } from './shell/menu/menu.component';
 import { FooterComponent } from './shell/footer/footer.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { MatToolbarModule, MatTabsModule, MatIconModule } from '@angular/material';
+import { MatToolbarModule, MatTabsModule, MatIconModule, MatSidenavModule } from '@angular/material';
 
 @NgModule({
   declarations: [ShellComponent, HeaderComponent, MainComponent, MenuComponent, FooterComponent, NotFoundComponent],
@@ -16,7 +16,8 @@ import { MatToolbarModule, MatTabsModule, MatIconModule } from '@angular/materia
     RouterModule,
     MatToolbarModule,
     MatTabsModule,
-    MatIconModule
+    MatIconModule,
+    MatSidenavModule
   ],
   exports: [
     ShellComponent
