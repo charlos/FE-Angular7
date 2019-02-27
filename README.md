@@ -37,3 +37,6 @@ ng g c template/shell/footer
 ng g c template/not-found
 
 ng g m shared
+
+ng g m home --routing true
+ng g c home/home

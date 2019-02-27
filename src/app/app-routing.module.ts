@@ -4,6 +4,10 @@ import { NotFoundComponent } from './template/not-found/not-found.component';
 
 const routes: Routes = [
   {
+    path: '',
+    loadChildren: './home/home.module#HomeModule'
+  },
+  {
     path: 'not-found',
     component: NotFoundComponent
   },
