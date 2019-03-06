@@ -1,14 +1,51 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UimaterialXbModule } from '../modules/uimaterial-xb/uimaterial-xb.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  MatTableModule,
+  MatSortModule,
+  MatToolbarModule,
+  MatSelectModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatInputModule,
+  MatDialogModule,
+  MatButtonModule,
+  MatButtonToggleModule
+} from '@angular/material';
 import { TableDataComponent } from './table-data/table-data.component';
+import { TableInfoComponent } from './table-data/table-info/table-info.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import { SelectorComponent } from './toolbar/selector/selector.component';
+import { DatepikerComponent } from './toolbar/datepiker/datepiker.component';
+import { AddTrasladoComponent, AddTrasladoDialog } from './table-data/table-info/add-traslado/add-traslado.component';
 
 @NgModule({
-  declarations: [TableDataComponent],
+  declarations: [
+    TableDataComponent,
+    TableInfoComponent,
+    ToolbarComponent,
+    SelectorComponent,
+    DatepikerComponent,
+    AddTrasladoComponent,
+    AddTrasladoDialog
+  ],
   imports: [
     CommonModule,
-    UimaterialXbModule
+    MatTableModule,
+    MatSortModule,
+    MatToolbarModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatButtonToggleModule
   ],
-  exports: [TableDataComponent]
+  entryComponents: [AddTrasladoComponent, AddTrasladoDialog],
+  exports: [TableDataComponent, ToolbarComponent]
 })
 export class SharedModule { }
