@@ -28,3 +28,14 @@
     letter-spacing: normal;
     color: white;
 }
+
+.is-active {
+    width: 200px;
+    height: 50px;
+    background: #0d4154;
+    padding: 17px 45px !important;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    border-left: 4px #7ea0a7 solid;
+}

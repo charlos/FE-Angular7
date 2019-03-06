@@ -1,138 +1,216 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
 
-export interface LegajoElement {
-  ID: number,
-  CreatedAt: string,
-  UpdatedAt: string,
-  DeletedAt: string,
-  Nombre: string,
-  Codigo: string,
-  Descripcion: string,
-  Activo: number
+export interface TrasladoElement {
+  ID: number;
+  CreatedAt: string;
+  UpdatedAt: string;
+  DeletedAt: string;
+  HC: string;
+  Paciente: string;
+  Distancia: string;
+  Condicion: string;
+  Traslados: number;
+  CUIL: string;
+  Centro: string;
+  Tarifa: number;
+  Peaje: number;
+  Total: number;
 }
 
-const ELEMENT_DATA: LegajoElement[] = [
+const ELEMENT_DATA: TrasladoElement[] = [
+  {
+    ID: 1,
+    CreatedAt: '2019-01-15T10:21:54.652265-03:00',
+    UpdatedAt: '2019-01-22T11:07:38.64822-03:00',
+    DeletedAt: null,
+    HC: 'HC2837746',
+    Paciente: 'Rivera, Eliana',
+    Distancia: '13',
+    Condicion: 'Normal',
+    Traslados: 20,
+    CUIL: '20-309923887-9',
+    Centro: 'Caballito',
+    Tarifa: 80,
+    Peaje: null,
+    Total: 2080
+  },
+  {
+    ID: 2,
+    CreatedAt: '2019-01-15T10:21:54.652265-03:00',
+    UpdatedAt: '2019-01-22T11:07:38.64822-03:00',
+    DeletedAt: null,
+    HC: 'HC6637436',
+    Paciente: 'Jimenez, Fernando',
+    Distancia: '11',
+    Condicion: 'Normal',
+    Traslados: 26,
+    CUIL: '20-309923887-9',
+    Centro: 'Caballito',
+    Tarifa: 80,
+    Peaje: null,
+    Total: 2080
+  },
+  {
+    ID: 3,
+    CreatedAt: '2019-01-15T10:21:54.652265-03:00',
+    UpdatedAt: '2019-01-22T11:07:38.64822-03:00',
+    DeletedAt: null,
+    HC: 'HC2992834',
+    Paciente: 'Sanchez, Alberto',
+    Distancia: '9',
+    Condicion: 'Normal',
+    Traslados: 22,
+    CUIL: '20-309923887-9',
+    Centro: 'Caballito',
+    Tarifa: 80,
+    Peaje: null,
+    Total: 2080
+  },
+  {
+    ID: 4,
+    CreatedAt: '2019-01-15T10:21:54.652265-03:00',
+    UpdatedAt: '2019-01-22T11:07:38.64822-03:00',
+    DeletedAt: null,
+    HC: 'HC2992834',
+    Paciente: 'Sanchez, Alberto',
+    Distancia: '9',
+    Condicion: 'Normal',
+    Traslados: 4,
+    CUIL: '20-149923887-5',
+    Centro: 'Caballito',
+    Tarifa: 80,
+    Peaje: null,
+    Total: 320
+  },
   {
     ID: 5,
-    CreatedAt: "2019-01-15T10:21:54.652265-03:00",
-    UpdatedAt: "2019-01-22T11:07:38.64822-03:00",
+    CreatedAt: '2019-01-15T10:21:54.652265-03:00',
+    UpdatedAt: '2019-01-22T11:07:38.64822-03:00',
     DeletedAt: null,
-    Nombre: "Legajo Prueba",
-    Codigo: "L0004",
-    Descripcion: "Legajo numero 2",
-    Activo: 1
+    HC: 'HC1127722',
+    Paciente: 'Gonzales, Juan',
+    Distancia: '11',
+    Condicion: 'Especial',
+    Traslados: 24,
+    CUIL: '20-309923887-9',
+    Centro: 'Caballito',
+    Tarifa: 120,
+    Peaje: 50,
+    Total: 2880
+  },
+  {
+    ID: 6,
+    CreatedAt: '2019-01-15T10:21:54.652265-03:00',
+    UpdatedAt: '2019-01-22T11:07:38.64822-03:00',
+    DeletedAt: null,
+    HC: 'HC9938277',
+    Paciente: 'Urquiza Vallejo, M…',
+    Distancia: '7',
+    Condicion: 'Normal',
+    Traslados: 26,
+    CUIL: '20-309923887-9',
+    Centro: 'Caballito',
+    Tarifa: 80,
+    Peaje: 50,
+    Total: 2080
   },
   {
     ID: 7,
-    CreatedAt: "2019-01-15T11:05:42.111766-03:00",
-    UpdatedAt: "2019-01-15T11:05:42.111766-03:00",
+    CreatedAt: '2019-01-15T10:21:54.652265-03:00',
+    UpdatedAt: '2019-01-22T11:07:38.64822-03:00',
     DeletedAt: null,
-    Nombre: "Legajo 2",
-    Codigo: "L0002",
-    Descripcion: "Legajo número 2",
-    Activo: 1
+    HC: 'HC2837746',
+    Paciente: 'Rivera, Eliana',
+    Distancia: '13',
+    Condicion: 'Normal',
+    Traslados: 20,
+    CUIL: '20-309923887-9',
+    Centro: 'Caballito',
+    Tarifa: 80,
+    Peaje: null,
+    Total: 2080
   },
   {
     ID: 8,
-    CreatedAt: "2019-01-22T09:57:07.152234-03:00",
-    UpdatedAt: "2019-01-23T13:54:18.652656-03:00",
+    CreatedAt: '2019-01-15T10:21:54.652265-03:00',
+    UpdatedAt: '2019-01-22T11:07:38.64822-03:00',
     DeletedAt: null,
-    Nombre: "Legajo Prueba",
-    Codigo: "L0003",
-    Descripcion: "Probando Patch",
-    Activo: 1
+    HC: 'HC6637436',
+    Paciente: 'Jimenez, Fernando',
+    Distancia: '11',
+    Condicion: 'Normal',
+    Traslados: 26,
+    CUIL: '20-309923887-9',
+    Centro: 'Caballito',
+    Tarifa: 80,
+    Peaje: null,
+    Total: 2080
   },
   {
     ID: 9,
-    CreatedAt: "2019-01-15T10:21:54.652265-03:00",
-    UpdatedAt: "2019-01-22T11:07:38.64822-03:00",
+    CreatedAt: '2019-01-15T10:21:54.652265-03:00',
+    UpdatedAt: '2019-01-22T11:07:38.64822-03:00',
     DeletedAt: null,
-    Nombre: "Legajo Prueba",
-    Codigo: "L0004",
-    Descripcion: "Legajo numero 2",
-    Activo: 1
+    HC: 'HC2992834',
+    Paciente: 'Sanchez, Alberto',
+    Distancia: '9',
+    Condicion: 'Normal',
+    Traslados: 22,
+    CUIL: '20-309923887-9',
+    Centro: 'Caballito',
+    Tarifa: 80,
+    Peaje: null,
+    Total: 2080
   },
   {
     ID: 10,
-    CreatedAt: "2019-01-15T11:05:42.111766-03:00",
-    UpdatedAt: "2019-01-15T11:05:42.111766-03:00",
+    CreatedAt: '2019-01-15T10:21:54.652265-03:00',
+    UpdatedAt: '2019-01-22T11:07:38.64822-03:00',
     DeletedAt: null,
-    Nombre: "Legajo 2",
-    Codigo: "L0002",
-    Descripcion: "Legajo número 2",
-    Activo: 1
+    HC: 'HC2992834',
+    Paciente: 'Sanchez, Alberto',
+    Distancia: '9',
+    Condicion: 'Normal',
+    Traslados: 4,
+    CUIL: '20-149923887-5',
+    Centro: 'Caballito',
+    Tarifa: 80,
+    Peaje: null,
+    Total: 320
   },
   {
     ID: 11,
-    CreatedAt: "2019-01-22T09:57:07.152234-03:00",
-    UpdatedAt: "2019-01-23T13:54:18.652656-03:00",
+    CreatedAt: '2019-01-15T10:21:54.652265-03:00',
+    UpdatedAt: '2019-01-22T11:07:38.64822-03:00',
     DeletedAt: null,
-    Nombre: "Legajo Prueba",
-    Codigo: "L0003",
-    Descripcion: "Probando Patch",
-    Activo: 1
+    HC: 'HC1127722',
+    Paciente: 'Gonzales, Juan',
+    Distancia: '11',
+    Condicion: 'Especial',
+    Traslados: 24,
+    CUIL: '20-309923887-9',
+    Centro: 'Caballito',
+    Tarifa: 120,
+    Peaje: 50,
+    Total: 2880
   },
   {
     ID: 12,
-    CreatedAt: "2019-01-15T10:21:54.652265-03:00",
-    UpdatedAt: "2019-01-22T11:07:38.64822-03:00",
+    CreatedAt: '2019-01-15T10:21:54.652265-03:00',
+    UpdatedAt: '2019-01-22T11:07:38.64822-03:00',
     DeletedAt: null,
-    Nombre: "Legajo Prueba",
-    Codigo: "L0004",
-    Descripcion: "Legajo numero 2",
-    Activo: 1
+    HC: 'HC9938277',
+    Paciente: 'Urquiza Vallejo, M…',
+    Distancia: '7',
+    Condicion: 'Normal',
+    Traslados: 26,
+    CUIL: '20-309923887-9',
+    Centro: 'Caballito',
+    Tarifa: 80,
+    Peaje: 50,
+    Total: 2080
   },
-  {
-    ID: 13,
-    CreatedAt: "2019-01-15T11:05:42.111766-03:00",
-    UpdatedAt: "2019-01-15T11:05:42.111766-03:00",
-    DeletedAt: null,
-    Nombre: "Legajo 2",
-    Codigo: "L0002",
-    Descripcion: "Legajo número 2",
-    Activo: 1
-  },
-  {
-    ID: 14,
-    CreatedAt: "2019-01-22T09:57:07.152234-03:00",
-    UpdatedAt: "2019-01-23T13:54:18.652656-03:00",
-    DeletedAt: null,
-    Nombre: "Legajo Prueba",
-    Codigo: "L0003",
-    Descripcion: "Probando Patch",
-    Activo: 1
-  },
-  {
-    ID: 15,
-    CreatedAt: "2019-01-15T10:21:54.652265-03:00",
-    UpdatedAt: "2019-01-22T11:07:38.64822-03:00",
-    DeletedAt: null,
-    Nombre: "Legajo Prueba",
-    Codigo: "L0004",
-    Descripcion: "Legajo numero 2",
-    Activo: 1
-  },
-  {
-    ID: 16,
-    CreatedAt: "2019-01-15T11:05:42.111766-03:00",
-    UpdatedAt: "2019-01-15T11:05:42.111766-03:00",
-    DeletedAt: null,
-    Nombre: "Legajo 2",
-    Codigo: "L0002",
-    Descripcion: "Legajo número 2",
-    Activo: 1
-  },
-  {
-    ID: 17,
-    CreatedAt: "2019-01-22T09:57:07.152234-03:00",
-    UpdatedAt: "2019-01-23T13:54:18.652656-03:00",
-    DeletedAt: null,
-    Nombre: "Legajo Prueba",
-    Codigo: "L0003",
-    Descripcion: "Probando Patch",
-    Activo: 1
-  }
 ];
 
 @Component({
@@ -141,7 +219,7 @@ const ELEMENT_DATA: LegajoElement[] = [
   styleUrls: ['./table-data.component.css']
 })
 export class TableDataComponent implements OnInit {
-  displayedColumns: string[] = ['ID', 'Nombre', 'Codigo', 'Descripcion'];
+  displayedColumns: string[] = ['HC', 'Paciente', 'Distancia', 'Condicion', 'Traslados', 'CUIL', 'Centro', 'Tarifa', 'Peaje', 'Total'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   @ViewChild(MatSort) sort: MatSort;
