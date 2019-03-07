@@ -8,6 +8,10 @@ const routes: Routes = [
     loadChildren: './home/home.module#HomeModule'
   },
   {
+    path: 'traslados',
+    loadChildren: './traslados/traslados.module#TrasladosPageModule'
+  },
+  {
     path: 'not-found',
     component: NotFoundComponent
   },

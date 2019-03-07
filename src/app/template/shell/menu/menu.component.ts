@@ -13,7 +13,7 @@ export interface ItemMenu {
 
 export class MenuComponent implements OnInit {
   itemsMenu: ItemMenu[] = [
-    {nombre: 'Traslados', url: '/traslados'},
+    {nombre: 'Legajos', url: '/legajos'},
     {nombre: 'Centros', url: '/centros'},
     {nombre: 'Transportistas', url: '/transportistas'}
   ];
