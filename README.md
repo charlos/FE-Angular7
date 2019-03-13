@@ -40,3 +40,6 @@ ng g m shared
 
 ng g m home --routing true
 ng g c home/home
+
+ng g m login --routing true
+ng g c login/login
