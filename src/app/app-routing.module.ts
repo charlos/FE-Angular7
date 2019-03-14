@@ -1,24 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { NotFoundComponent } from './template/not-found/not-found.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   {
+    path: 'auth',
+    loadChildren: './auth/login.module#LoginModule'
+  },
+  {
     path: '',
-    loadChildren: './home/home.module#HomeModule'
+    loadChildren: './template/template.module#TemplateModule',
+    canActivate: [AuthGuard]
   },
-  {
-    path: 'traslados',
-    loadChildren: './traslados/traslados.module#TrasladosPageModule'
-  },
-  {
-    path: 'not-found',
-    component: NotFoundComponent
-  },
-  {
-    path: '**',
-    redirectTo: 'not-found'
-  }
 ];
 
 @NgModule({

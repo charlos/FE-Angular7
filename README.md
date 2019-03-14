@@ -41,5 +41,7 @@ ng g m shared
 ng g m home --routing true
 ng g c home/home
 
-ng g m login --routing true
-ng g c login/login
+ng g m auth --routing true
+ng g s auth/auth
+ng g c auth/login
+ng g interface auth/user model

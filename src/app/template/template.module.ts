@@ -18,10 +18,13 @@ import { MatToolbarModule, MatTabsModule, MatIconModule, MatSidenavModule, MatLi
     MatTabsModule,
     MatIconModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: ShellComponent
+      }
+    ])
   ],
-  exports: [
-    ShellComponent
-  ]
 })
 export class TemplateModule { }
