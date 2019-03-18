@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login/login.component';
 
+import { HttpClientModule } from '@angular/common/http';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
     MatToolbarModule,
@@ -20,6 +22,7 @@ import {
   imports: [
     CommonModule,
     LoginRoutingModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     MatToolbarModule,
