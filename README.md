@@ -45,3 +45,6 @@ ng g m auth --routing true
 ng g s auth/auth
 ng g c auth/login
 ng g interface auth/user model
+
+ng g m legajo --routing true
+ng g c legajo/legajo
