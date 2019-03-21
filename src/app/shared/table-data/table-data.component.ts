@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
 
 export interface TrasladoElement {
@@ -219,12 +219,13 @@ const ELEMENT_DATA: TrasladoElement[] = [
   styleUrls: ['./table-data.component.css']
 })
 export class TableDataComponent implements OnInit {
-  displayedColumns: string[] = ['HC', 'Paciente', 'Distancia', 'Condicion', 'Traslados', 'CUIL', 'Centro', 'Tarifa', 'Peaje', 'Total'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
-
+  @Input() public displayedColumns: string[];
+  @Input() public data: Object[];
+  dataSource: any;
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
+    this.dataSource = new MatTableDataSource(this.data);
     this.dataSource.sort = this.sort;
   }
 

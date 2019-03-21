@@ -69,20 +69,5 @@ export class LoginComponent implements OnInit {
       this.router.navigate([this.returnUrl]);
       //this.currentUserSubject.next(user);
     }
-
-    /*let data = await this.httpClient.get("http://localhost:8080/legajos");
-    console.log("Data: " + data);*/
-
-    //https://xubio.com/API/1.1/swagger.json
-    /*const headers = new HttpHeaders()
-      .append('Content-Type', 'application/json')
-      .append('Access-Control-Allow-Headers', 'Content-Type')
-      .append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE')
-      .append('Access-Control-Allow-Origin', '*')
-      .append("token", "2019-03-19 12:58:48.373698");
-    this.httpClient.post(`api/auth/login`, { username:'admin', pass:'admin', tenant:'tnt_41105' }, { headers })
-      .subscribe(data => {
-        console.log(data);
-      });*/
   }
 }
