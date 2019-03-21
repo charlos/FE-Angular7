@@ -22,7 +22,13 @@ import { MatToolbarModule, MatTabsModule, MatIconModule, MatSidenavModule, MatLi
     RouterModule.forChild([
       {
         path: '',
-        component: ShellComponent
+        component: ShellComponent,
+        children: [
+          {
+            path: 'legajos',
+            loadChildren: './legajo/legajo.module#LegajoModule',
+          },
+        ]
       }
     ])
   ],
