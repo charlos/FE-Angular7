@@ -1,7 +1,7 @@
 import { Component, OnInit, Injectable } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { AuthService } from '../auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../user.model';
 
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
 
   constructor(
-    private httpClient: HttpClient,
+    private authenticationService: AuthService,
     private route: ActivatedRoute,
     private router: Router
     ) { }
@@ -53,21 +53,11 @@ export class LoginComponent implements OnInit {
       pass: String(this.passFormControl.value),
     };
 
-    const headers = new HttpHeaders()
-      .append('Content-Type', 'application/x-www-form-urlencoded')
-    const body = new HttpParams()
-      .set('username', user.username)
-      .set('pass', user.pass)
-
-    let data = await this.httpClient.post<any>(`api/auth/login`, body.toString(), { headers }).toPromise();
-    console.log(data);
+    const data = await this.authenticationService.login(user.username, user.pass);
 
     // login successful if there's a jwt token in the response
     if (data && data.Token) {
-      // store user details and jwt token in local storage to keep user logged in between page refreshes
-      localStorage.setItem('currentUser', JSON.stringify(data));
       this.router.navigate([this.returnUrl]);
-      //this.currentUserSubject.next(user);
     }
   }
 }
