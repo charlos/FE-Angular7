@@ -26,7 +26,7 @@ import { MatToolbarModule, MatTabsModule, MatIconModule, MatSidenavModule, MatLi
         children: [
           {
             path: 'legajos',
-            loadChildren: './legajo/legajo.module#LegajoModule',
+            loadChildren: '../legajo/legajo.module#LegajoModule',
           },
         ]
       }
