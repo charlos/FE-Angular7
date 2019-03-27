@@ -29,22 +29,35 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Comandos CLI para la construcción de la App
 
 ng g m template
+
 ng g c template/shell
+
 ng g c template/shell/header
+
 ng g c template/shell/main
+
 ng g c template/shell/menu
+
 ng g c template/shell/footer
+
 ng g c template/not-found
 
 ng g m shared
 
 ng g m home --routing true
+
 ng g c home/home
 
 ng g m auth --routing true
+
 ng g s auth/auth
+
 ng g c auth/login
+
 ng g interface auth/user model
 
 ng g m legajo --routing true
+
 ng g c legajo/legajo
+
+ng g c legajo/legajo/add-legajo
