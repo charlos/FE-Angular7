@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { merge, Observable, of as observableOf } from 'rxjs';
@@ -10,9 +10,9 @@ import { catchError, map, startWith, switchMap } from 'rxjs/operators';
   styleUrls: ['./legajo.component.css']
 })
 export class LegajoComponent implements AfterViewInit {
-  displayedColumns: string[] = ['created', 'state', 'number', 'title'];
-  exampleDatabase: ExampleHttpDatabase | null;
-  data: GithubIssue[] = [];
+  displayedColumns: string[] = ['ID', 'Creado', 'Nombre', 'Legajo'];
+  exampleDatabase: LegajoDB | null;
+  data: LegajosItem[] = [];
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -24,7 +24,7 @@ export class LegajoComponent implements AfterViewInit {
   constructor(private http: HttpClient) { }
 
   ngAfterViewInit() {
-    this.exampleDatabase = new ExampleHttpDatabase(this.http);
+    this.exampleDatabase = new LegajoDB(this.http);
 
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
@@ -34,16 +34,16 @@ export class LegajoComponent implements AfterViewInit {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this.exampleDatabase!.getRepoIssues(
+          return this.exampleDatabase!.getLegajos(
             this.sort.active, this.sort.direction, this.paginator.pageIndex);
         }),
         map(data => {
           // Flip flag to show that loading has finished.
           this.isLoadingResults = false;
           this.isRateLimitReached = false;
-          this.resultsLength = data.total_count;
+          this.resultsLength = 1; // deberia ir algo del estilo "data.total_count"
 
-          return data.items;
+          return data; // deberia ir algo del estilo "data.items"
         }),
         catchError(() => {
           this.isLoadingResults = false;
@@ -55,27 +55,39 @@ export class LegajoComponent implements AfterViewInit {
   }
 }
 
-export interface GithubApi {
-  items: GithubIssue[];
+/*export interface LegajosApi {
+  items: LegajosItem[];
   total_count: number;
-}
+}*/
 
-export interface GithubIssue {
-  created_at: string;
-  number: string;
-  state: string;
-  title: string;
-}
+export interface LegajosItem {
+  ID: number;
+  CreatedAt: string;
+  UpdatedAt: string;
+  DeletedAt: null,
+  Nombre: string;
+  Apellido: string;
+  Codigo: string;
+  Descripcion: string;
+  Activo: number;
+  Legajo: string;
+  Cuil: string;
+  Direccion: string;
+};
 
-/** An example database that the data source uses to retrieve data for the table. */
-export class ExampleHttpDatabase {
+export interface LegajosApi extends Array<LegajosItem> {};
+
+export class LegajoDB {
   constructor(private http: HttpClient) { }
 
-  getRepoIssues(sort: string, order: string, page: number): Observable<GithubApi> {
-    const href = 'https://api.github.com/search/issues';
+  getLegajos(sort: string, order: string, page: number): Observable<LegajosApi> {
+    const token = JSON.parse(localStorage.getItem('currentUser')).Token
+    const headers = new HttpHeaders()
+      .append('token', token)
+    const href = '/api/legajo/legajos';
     const requestUrl =
       `${href}?q=repo:angular/material2&sort=${sort}&order=${order}&page=${page + 1}`;
 
-    return this.http.get<GithubApi>(requestUrl);
+    return this.http.get<LegajosApi>(requestUrl, {headers});
   }
-}
+};
