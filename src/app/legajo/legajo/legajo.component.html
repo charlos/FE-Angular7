@@ -1,4 +1,4 @@
-<div class="example-container mat-elevation-z8">
+<div class="example-container">
   <div class="example-loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
     <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
     <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
@@ -8,7 +8,7 @@
 
   <app-add-legajo></app-add-legajo>
 
-  <div class="example-table-container">
+  <div class="table-container">
 
     <table mat-table [dataSource]="data" class="example-table" matSort matSortActive="Creado" matSortDisableClear
       matSortDirection="desc">
@@ -43,5 +43,5 @@
     </table>
   </div>
 
-  <mat-paginator [length]="resultsLength" [pageSize]="30"></mat-paginator>
+  <!--<mat-paginator [length]="resultsLength" [pageSize]="30"></mat-paginator>-->
 </div>
