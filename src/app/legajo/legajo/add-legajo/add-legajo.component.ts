@@ -1,12 +1,15 @@
-import { Component, AfterViewInit, Inject } from '@angular/core';
+import { Component, AfterViewInit, Inject, Input } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { LegajosItem, LegajosApi, LegajoService } from '../../legajo.service';
 
-export interface DialogData {
+/*export interface DialogData {
+  legajoId: number;
   numeroLegajo: string;
   conductor: string;
   fecha: string;
   tipo: string;
-}
+}*/
 
 @Component({
   selector: 'app-add-legajo',
@@ -14,18 +17,19 @@ export interface DialogData {
   styleUrls: ['./add-legajo.component.css']
 })
 export class AddLegajoComponent {
+  @Input() legajo: number;
   numeroLegajo: string;
   conductor: string;
   fecha: string;
   tipo: string;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private http: HttpClient) { }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddLegajoDialog, {
       width: '875px',
-      height: '315px',
-      data: { numeroLegajo: this.numeroLegajo, fecha: this.fecha, tipo: this.tipo }
+      height: '520px',
+      data: { ID: this.legajo, numeroLegajo: this.numeroLegajo, fecha: this.fecha, tipo: this.tipo }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -45,15 +49,20 @@ export class AddLegajoDialog implements AfterViewInit{
 
   constructor(
     public dialogRef: MatDialogRef<AddLegajoDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
+    @Inject(MAT_DIALOG_DATA) public data: LegajosItem,
+    private legajoService: LegajoService
   ) { 
 
   }
   
-  ngAfterViewInit() {
+  async ngAfterViewInit() {
     console.log("ngAfterViewInit()");
-    if (this.data.numeroLegajo) {
-      console.log("Nro. Legajo: " + this.data.numeroLegajo);
+    if (this.data.ID) {
+      console.log("Nro. Legajo: " + this.data.ID);
+      
+      const legajosItem: LegajosItem = await this.legajoService.getLegajo(this.data.ID);
+      this.data = legajosItem;
+    
     }
 
   }

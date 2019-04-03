@@ -61,3 +61,5 @@ ng g m legajo --routing true
 ng g c legajo/legajo
 
 ng g c legajo/legajo/add-legajo
+
+ng g s legajo/legajo

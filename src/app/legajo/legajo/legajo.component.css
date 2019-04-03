@@ -14,6 +14,17 @@ table {
   width: 100%;
 }
 
+/* Column Widths */
+/*.mat-column-number,
+.mat-column-state {
+  max-width: 64px;
+}
+
+.mat-column-created {
+  max-width: 124px;
+}*/
+
+
 .example-loading-shade {
   position: absolute;
   top: 0;
@@ -31,22 +42,11 @@ table {
   color: #980000;
   max-width: 360px;
   text-align: center;
-}*/
-
-/* Column Widths */
-/*.mat-column-number,
-.mat-column-state {
-  max-width: 64px;
 }
-
-.mat-column-created {
-  max-width: 124px;
-}*/
-
 
 .table-container {
     margin: 17px;
-    max-height: 400px;
+    max-height: 600px;
     overflow: auto;
     border-radius: 4px;
     border: solid 1px #e6e6e6;
@@ -132,4 +132,8 @@ th.mat-sort-header-sorted {
     {
         background-color: #0d4154;
     }
+}
+
+.actions-icon {
+  size: 5px;
 }
