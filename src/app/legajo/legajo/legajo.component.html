@@ -40,7 +40,7 @@
       <ng-container matColumnDef="Acciones">
         <th mat-header-cell *matHeaderCellDef>Acciones</th>
         <td mat-cell *matCellDef="let row">
-          <app-add-legajo legajo={{row.ID}}></app-add-legajo>
+          <app-add-legajo (update)="onUpdate($event)" legajo={{row.ID}}></app-add-legajo>
         </td>
       </ng-container>
       

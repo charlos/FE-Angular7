@@ -10,5 +10,5 @@
 </div>
 <div mat-dialog-actions class="actions">
     <button mat-button class="boton-dialog cancelar" (click)="onNoClick()">Cancelar</button>
-    <button mat-button class="boton" [mat-dialog-close]="data.numeroLegajo">Incluir</button>
+    <button mat-button class="boton" [mat-dialog-close]="data" (click)="onClickSave()">Guardar</button>
 </div>

@@ -29,4 +29,17 @@ export class LegajoComponent implements AfterViewInit {
     this.isLoadingResults = false;
 
   }
+
+  createItem(item: LegajosItem){
+    console.log(item);  
+  }
+
+  onUpdate(item: LegajosItem) {
+    console.log("Update Item: " + JSON.stringify(item));
+    this.data.push(item);
+  }
+
+  deleteItem(item: LegajosItem) {
+    console.log(item); 
+  }
 }

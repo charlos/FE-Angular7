@@ -47,12 +47,54 @@ export class LegajoService {
     const token = JSON.parse(localStorage.getItem('currentUser')).Token
     const headers = new HttpHeaders()
       .append('token', token)
-    const href = '/api/legajo/legajo';
+    const href = '/api/legajo/legajos';
     const requestUrl =
       `${href}/${legajoId}`;
 
     let legajosItem: LegajosItem;
     legajosItem  = await this.http.get<LegajosItem>(requestUrl, { headers }).toPromise();
+
+    return legajosItem;
+  }
+  
+  public async postLegajo(legajo: LegajosItem): Promise<LegajosItem> {
+    const token = JSON.parse(localStorage.getItem('currentUser')).Token
+    const headers = new HttpHeaders()
+      .append('token', token)
+    const href = '/api/legajo/legajos';
+    const requestUrl =
+      `${href}`;
+
+    let legajosItem: LegajosItem;
+    legajosItem = await this.http.post<LegajosItem>(requestUrl, legajo, { headers }).toPromise();
+
+    return legajosItem;
+  }
+
+  public async putLegajo(legajo: LegajosItem): Promise<LegajosItem> {
+    const token = JSON.parse(localStorage.getItem('currentUser')).Token
+    const headers = new HttpHeaders()
+      .append('token', token)
+    const href = '/api/legajo/legajos';
+    const requestUrl =
+      `${href}/${legajo.ID}`;
+
+    let legajosItem: LegajosItem;
+    legajosItem = await this.http.put<LegajosItem>(requestUrl, legajo, { headers }).toPromise();
+
+    return legajosItem;
+  }
+
+  public async deleteLegajo(legajo: LegajosItem): Promise<LegajosItem> {
+    const token = JSON.parse(localStorage.getItem('currentUser')).Token
+    const headers = new HttpHeaders()
+      .append('token', token)
+    const href = '/api/legajo/legajos';
+    const requestUrl =
+      `${href}/${legajo.ID}`;
+
+    let legajosItem: LegajosItem;
+    //legajosItem = await this.http.delete<LegajosItem>(requestUrl, legajo, { headers }).toPromise();
 
     return legajosItem;
   }

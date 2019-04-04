@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Inject, Input } from '@angular/core';
+import { Component, AfterViewInit, Inject, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LegajosItem, LegajosApi, LegajoService } from '../../legajo.service';
@@ -18,6 +18,7 @@ import { LegajosItem, LegajosApi, LegajoService } from '../../legajo.service';
 })
 export class AddLegajoComponent {
   @Input() legajo: number;
+  @Output() public update = new EventEmitter<LegajosItem>();
   numeroLegajo: string;
   conductor: string;
   fecha: string;
@@ -33,8 +34,10 @@ export class AddLegajoComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed '+result);
-      this.numeroLegajo = result;
+      console.log('The dialog was closed '+ JSON.stringify(result));
+      if(result) {
+        this.update.emit(result);
+      }
     });
   }
 
@@ -69,5 +72,16 @@ export class AddLegajoDialog implements AfterViewInit{
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  async onClickSave(): Promise<LegajosItem> {
+    let legajosItem: LegajosItem;
+    if (this.data.ID) {
+      legajosItem = await this.legajoService.putLegajo(this.data);
+    } else {
+      legajosItem = await this.legajoService.postLegajo(this.data);
+    }
+
+    return legajosItem;
   }
 }
