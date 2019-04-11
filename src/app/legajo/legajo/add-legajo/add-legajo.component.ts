@@ -19,6 +19,7 @@ import { LegajosItem, LegajosApi, LegajoService } from '../../legajo.service';
 export class AddLegajoComponent {
   @Input() legajo: number;
   @Output() public update = new EventEmitter<LegajosItem>();
+  @Output() public delete = new EventEmitter<LegajosItem>();
   numeroLegajo: string;
   conductor: string;
   fecha: string;
@@ -34,11 +35,30 @@ export class AddLegajoComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed '+ JSON.stringify(result));
+      console.log('El dialog fue cerrado '+ JSON.stringify(result));
       if(result) {
         this.update.emit(result);
       }
     });
+  }
+
+  deleteItem() {
+    const item: LegajosItem = { 
+      ID: this.legajo,
+      CreatedAt: null,
+      UpdatedAt: null,
+      DeletedAt: null,
+      Nombre: null,
+      Apellido: null,
+      Codigo: null,
+      Descripcion: null,
+      Activo: null,
+      Legajo: null,
+      Cuil: null,
+      Cbu: null,
+      Direccion: null
+    }
+    this.delete.emit(item);
   }
 
 }

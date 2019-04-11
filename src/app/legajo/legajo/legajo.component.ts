@@ -1,6 +1,6 @@
 import { LegajosItem, LegajosApi, LegajoService } from '../legajo.service';
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { merge, Observable, of as observableOf } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 
@@ -11,7 +11,7 @@ import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 })
 export class LegajoComponent implements AfterViewInit {
   displayedColumns: string[] = ['ID', 'Creado', 'Nombre', 'Legajo', 'Acciones'];
-  data: LegajosItem[] = [];
+  dataSource: MatTableDataSource<LegajosItem> = new MatTableDataSource<LegajosItem>();
   //data: LegajosApi;
 
   resultsLength = 0;
@@ -25,7 +25,7 @@ export class LegajoComponent implements AfterViewInit {
   async ngAfterViewInit() {
     //this.isLoadingResults = false;
     const legajosApi: LegajosApi = await this.legajoService.getLegajos(this.sort.active, this.sort.direction, 1);
-    this.data = legajosApi.items;
+    this.dataSource = new MatTableDataSource<LegajosItem>(legajosApi.items);
     this.isLoadingResults = false;
 
   }
@@ -35,11 +35,24 @@ export class LegajoComponent implements AfterViewInit {
   }
 
   onUpdate(item: LegajosItem) {
-    console.log("Update Item: " + JSON.stringify(item));
-    this.data.push(item);
+    console.log("Updated Item: " + item.ID);
+    this.dataSource.data.forEach(function (el, index) { 
+      if (el.ID == item.ID) this.dataSource.data.splice(index, 1, item); 
+    }, this);
+
+    this.dataSource = new MatTableDataSource<LegajosItem>(this.dataSource.data);
   }
 
-  deleteItem(item: LegajosItem) {
-    console.log(item); 
+  onDelete(item: LegajosItem) {
+    console.log("Deleted Item: " + item.ID); 
+    this.dataSource.data.forEach(function (el, index) {
+      if (el.ID == item.ID) this.dataSource.data.splice(index, 1);
+    }, this);
+
+    this.dataSource = new MatTableDataSource<LegajosItem>(this.dataSource.data);
+  }
+
+  refreshTableSorce() {
+    
   }
 }

@@ -137,3 +137,9 @@ th.mat-sort-header-sorted {
 .actions-icon {
   size: 5px;
 }
+
+.add-button {
+  float: right;
+  bottom: 48px;
+  right: 5px;
+}
