@@ -39,12 +39,10 @@ export class LegajoComponent implements AfterViewInit {
       data: { ID: null, numeroLegajo: null, fecha: null, tipo: null }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('El dialog fue cerrado ' + JSON.stringify(result));
-      if (result) {
+    dialogRef.componentInstance.create
+      .subscribe((result: LegajosItem) => {
         this.onCreate(result);
-      }
-    });
+      });
   }
 
   onCreate(item: LegajosItem) {

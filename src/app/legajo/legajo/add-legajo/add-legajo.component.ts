@@ -1,6 +1,5 @@
 import { Component, AfterViewInit, Inject, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LegajosItem, LegajosApi, LegajoService } from '../../legajo.service';
 
 /*export interface DialogData {
@@ -25,7 +24,7 @@ export class AddLegajoComponent {
   fecha: string;
   tipo: string;
 
-  constructor(public dialog: MatDialog, private http: HttpClient) { }
+  constructor(public dialog: MatDialog, private legajoService: LegajoService) { }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddLegajoDialog, {
@@ -42,7 +41,7 @@ export class AddLegajoComponent {
     });
   }
 
-  deleteItem() {
+  async deleteItem() {
     const item: LegajosItem = { 
       ID: this.legajo,
       CreatedAt: null,
@@ -58,6 +57,8 @@ export class AddLegajoComponent {
       Cbu: null,
       Direccion: null
     }
+
+    await this.legajoService.deleteLegajo(item);
     this.delete.emit(item);
   }
 
@@ -69,6 +70,7 @@ export class AddLegajoComponent {
   styleUrls: ['./add-legajo.component.css'],
 })
 export class AddLegajoDialog implements AfterViewInit{
+  @Output() public create = new EventEmitter<LegajosItem>();
 
   constructor(
     public dialogRef: MatDialogRef<AddLegajoDialog>,
@@ -99,12 +101,10 @@ export class AddLegajoDialog implements AfterViewInit{
     if (this.data.ID) {
       legajosItem = await this.legajoService.putLegajo(this.data);
     } else {
-      //legajosItem = await this.legajoService.postLegajo(this.data);
-      
-      this.data.ID = 10;
-      
+      legajosItem = await this.legajoService.postLegajo(this.data);
     }
 
+    this.create.emit(legajosItem)
     return legajosItem;
   }
 }
