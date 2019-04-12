@@ -1,8 +1,10 @@
 import { LegajosItem, LegajosApi, LegajoService } from '../legajo.service';
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { merge, Observable, of as observableOf } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
+import { AddLegajoDialog } from './add-legajo/add-legajo.component';
 
 @Component({
   selector: 'app-legajo',
@@ -20,7 +22,7 @@ export class LegajoComponent implements AfterViewInit {
 
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private legajoService: LegajoService) { }
+  constructor(private legajoService: LegajoService, public dialog: MatDialog) { }
 
   async ngAfterViewInit() {
     //this.isLoadingResults = false;
@@ -30,8 +32,26 @@ export class LegajoComponent implements AfterViewInit {
 
   }
 
-  createItem(item: LegajosItem){
-    console.log(item);  
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AddLegajoDialog, {
+      width: '875px',
+      height: '520px',
+      data: { ID: null, numeroLegajo: null, fecha: null, tipo: null }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('El dialog fue cerrado ' + JSON.stringify(result));
+      if (result) {
+        this.onCreate(result);
+      }
+    });
+  }
+
+  onCreate(item: LegajosItem) {
+    console.log("Created Item: " + item.ID);
+    this.dataSource.data.push(item);
+
+    this.dataSource = new MatTableDataSource<LegajosItem>(this.dataSource.data);
   }
 
   onUpdate(item: LegajosItem) {

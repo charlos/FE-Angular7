@@ -99,7 +99,10 @@ export class AddLegajoDialog implements AfterViewInit{
     if (this.data.ID) {
       legajosItem = await this.legajoService.putLegajo(this.data);
     } else {
-      legajosItem = await this.legajoService.postLegajo(this.data);
+      //legajosItem = await this.legajoService.postLegajo(this.data);
+      
+      this.data.ID = 10;
+      
     }
 
     return legajosItem;

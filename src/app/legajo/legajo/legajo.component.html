@@ -48,7 +48,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </div>
-  <button mat-fab color="primary" class="add-button">
+  <button mat-fab color="primary" class="add-button" (click)="openDialog()">
     <mat-icon aria-label="Nuevo Legajo">add</mat-icon>
   </button>
 
