@@ -17,7 +17,8 @@ export class AuthService {
   }
 
   public get currentUserValue(): User {
-    return this.currentUserSubject.value;
+    let user: User = this.currentUserSubject.value;
+    return user;
   }
 
   async login(username: string, password: string) {
@@ -47,12 +48,12 @@ export class AuthService {
 
   public async check_token() {
     if (localStorage.getItem('currentUser')) {
-      const token = JSON.parse(localStorage.getItem('currentUser')).Token
+      /*const token = JSON.parse(localStorage.getItem('currentUser')).Token
       const headers = new HttpHeaders()
-        .append('token', token)
+        .append('token', token)*/
 
       try {
-        let data = await this.httpClient.get<any>(`api/auth/check-token`, { headers }).toPromise();
+        let data = await this.httpClient.get<any>(`api/auth/check-token`).toPromise();
         console.log(data);
       } catch (error) {
         localStorage.removeItem('currentUser');
