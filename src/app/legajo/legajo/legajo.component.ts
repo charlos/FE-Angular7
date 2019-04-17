@@ -5,6 +5,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { merge, Observable, of as observableOf } from 'rxjs';
 import { catchError, map, startWith, switchMap } from 'rxjs/operators';
 import { AddLegajoDialog } from './add-legajo/add-legajo.component';
+import { NotificationService } from 'src/app/handler-error/notification.service';
 
 @Component({
   selector: 'app-legajo',
@@ -22,7 +23,11 @@ export class LegajoComponent implements AfterViewInit {
 
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private legajoService: LegajoService, public dialog: MatDialog) { }
+  constructor(
+    private legajoService: LegajoService,
+    public dialog: MatDialog,
+    private notificationService: NotificationService
+    ) { }
 
   async ngAfterViewInit() {
     //this.isLoadingResults = false;
@@ -33,6 +38,7 @@ export class LegajoComponent implements AfterViewInit {
   }
 
   openDialog(): void {
+    it.happens;
     const dialogRef = this.dialog.open(AddLegajoDialog, {
       width: '875px',
       height: '520px',

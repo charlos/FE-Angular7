@@ -10,6 +10,8 @@ import { AuthGuard } from './auth/auth.guard';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { ErrorInterceptor } from './auth/error.interceptor';
+import { HandlerErrorModule } from './handler-error/handler-error.module';
+import { NotificationService } from './handler-error/notification.service';
 
 @NgModule({
   declarations: [
@@ -19,13 +21,14 @@ import { ErrorInterceptor } from './auth/error.interceptor';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    LoginModule
+    LoginModule,
+    HandlerErrorModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-
-    AuthGuard
+    AuthGuard,
+    NotificationService
   ],
   bootstrap: [AppComponent]
 })
