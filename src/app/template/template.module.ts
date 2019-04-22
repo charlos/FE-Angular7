@@ -30,6 +30,10 @@ import { MatToolbarModule, MatTabsModule, MatIconModule, MatSidenavModule, MatLi
             path: 'legajos',
             loadChildren: '../legajo/legajo.module#LegajoModule',
           },
+          {
+            path: '',
+            redirectTo: 'legajos',
+          }
         ]
       }
     ])
