@@ -19,11 +19,25 @@
     <mat-form-field class="standard-input"><input matInput [(ngModel)]="data.Apellido" placeholder="Apellido">
     </mat-form-field>
     <mat-form-field class="standard-input"><input matInput [(ngModel)]="data.Cbu" placeholder="CBU"></mat-form-field>
-
-    <!--<h2>Hijos</h2>
+    
     <mat-divider></mat-divider>
-    <mat-form-field class="children-input"><input matInput [(ngModel)]="data.Legajo" placeholder="Número de Legajo"
-        cdkFocusInitial></mat-form-field>-->
+
+    <h2>Hijos</h2>
+    <div class="children-container">
+      <table style="width:100%">
+          <tr *ngFor="let hijo of data.Hijos">
+            <mat-form-field class="children-input"><input matInput [(ngModel)]="hijo.Nombre" placeholder="Nombre"></mat-form-field>
+            <mat-form-field class="children-input"><input matInput [(ngModel)]="hijo.Apellido" placeholder="Apellido"></mat-form-field>
+            <mat-form-field class="children-input"><input matInput [(ngModel)]="hijo.Cuil" placeholder="Cuil"></mat-form-field>
+            <mat-form-field class="children-input"><input matInput [(ngModel)]="hijo.Descripcion" placeholder="Descripcion"></mat-form-field>
+          </tr>
+          <tfoot>
+             
+          </tfoot>
+      </table>
+    </div>
+
+    <mat-divider></mat-divider>
 
   </div>
   <div mat-dialog-actions class="actions">

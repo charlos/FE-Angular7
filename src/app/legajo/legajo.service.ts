@@ -6,6 +6,15 @@ export interface LegajosApi {
   total_count: number;
 }
 
+export interface HijoItem {
+  ID: number;
+  Nombre: string;
+  Apellido: string;
+  Codigo: string;
+  Descripcion: string;
+  Cuil: string;
+}
+
 export interface LegajosItem {
   ID: number;
   CreatedAt: string;
@@ -20,6 +29,7 @@ export interface LegajosItem {
   Cuil: string;
   Cbu: string;
   Direccion: string;
+  Hijos: [HijoItem]
 };
 
 @Injectable({
@@ -100,15 +110,6 @@ export class LegajoService {
         Obrasocialid: 1
       },
       Hijos: [
-        {
-          Nombre: "Fausto",
-          Apellido: "Flores",
-          Codigo: "FAUSTO",
-          Descripcion: "descripcion",
-          Activo: 1,
-          Cuil: "231321321321",
-          Obrasocialid: 1
-        }
       ],
       Remuneracion: 1200,
       HorasMensualesNormales: "15",
@@ -121,6 +122,7 @@ export class LegajoService {
     legajoCompleto.Nombre = legajo.Nombre;
     legajoCompleto.Apellido = legajo.Apellido;
     legajoCompleto.Cbu = legajo.Cbu;
+    legajoCompleto.Hijos = legajo.Hijos;
 
 
     legajosItem = await this.http.post<LegajosItem>(requestUrl, legajoCompleto, { headers }).toPromise();
