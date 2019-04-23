@@ -8,9 +8,11 @@ import { SharedModule } from '../shared/shared.module';
 import { LegajoComponent } from './legajo/legajo.component';
 import { DemoMaterialModule } from '../material.module';
 import { AddLegajoComponent, AddLegajoDialog } from './legajo/add-legajo/add-legajo.component';
+import { LegajoListComponent } from './legajo-list/legajo-list.component';
+import { ActionsComponent } from './legajo-list/actions/actions.component';
 
 @NgModule({
-  declarations: [LegajoComponent, AddLegajoDialog, AddLegajoComponent],
+  declarations: [LegajoComponent, AddLegajoDialog, AddLegajoComponent, LegajoListComponent, ActionsComponent],
   imports: [
     CommonModule,
     FormsModule,
