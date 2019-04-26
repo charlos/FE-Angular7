@@ -19,33 +19,21 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { SelectorComponent } from './toolbar/selector/selector.component';
 import { DatepikerComponent } from './toolbar/datepiker/datepiker.component';
 import { AddTrasladoComponent, AddTrasladoDialog } from './table-data/table-info/add-traslado/add-traslado.component';
+import { SelectorDefaultComponent } from './selector-default/selector-default.component';
+import { DemoMaterialModule } from '../material.module';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [
-    TableDataComponent,
-    TableInfoComponent,
-    ToolbarComponent,
-    SelectorComponent,
-    DatepikerComponent,
-    AddTrasladoComponent,
-    AddTrasladoDialog
+    SelectorDefaultComponent
   ],
   imports: [
     CommonModule,
-    MatTableModule,
-    MatSortModule,
-    MatToolbarModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatInputModule,
-    MatDialogModule,
     FormsModule,
     ReactiveFormsModule,
-    MatButtonModule,
-    MatButtonToggleModule
+    DemoMaterialModule
   ],
-  entryComponents: [AddTrasladoComponent, AddTrasladoDialog],
-  exports: [TableDataComponent, ToolbarComponent]
+  entryComponents: [],
+  exports: [SelectorDefaultComponent]
 })
 export class SharedModule { }
