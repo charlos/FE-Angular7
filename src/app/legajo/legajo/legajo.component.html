@@ -10,31 +10,38 @@
 
   <div mat-dialog-content class="content">
 
-    <mat-form-field class="standard-input"><input matInput [(ngModel)]="data.Legajo" placeholder="Número de Legajo"
+    <mat-form-field class="standard-input"><input matInput [(ngModel)]="data.legajo" placeholder="Número de Legajo"
         cdkFocusInitial></mat-form-field>
     <mat-form-field class="standard-input"><input matInput [(ngModel)]="data.CreatedAt" placeholder="Creado">
     </mat-form-field>
-    <mat-form-field class="standard-input"><input matInput [(ngModel)]="data.Nombre" placeholder="Nombre">
+    <mat-form-field class="standard-input"><input matInput [(ngModel)]="data.nombre" placeholder="Nombre">
     </mat-form-field>
-    <mat-form-field class="standard-input"><input matInput [(ngModel)]="data.Apellido" placeholder="Apellido">
+    <mat-form-field class="standard-input"><input matInput [(ngModel)]="data.apellido" placeholder="Apellido">
     </mat-form-field>
-    <mat-form-field class="standard-input"><input matInput [(ngModel)]="data.Cbu" placeholder="CBU"></mat-form-field>
-    
+    <mat-form-field class="standard-input"><input matInput [(ngModel)]="data.cbu" placeholder="CBU"></mat-form-field>
+    <app-selector-default [value] ="{value: data.pais.ID, viewValue: data.pais.nombre}"></app-selector-default>
+
     <mat-divider></mat-divider>
 
     <h2>Hijos</h2>
     <div class="children-container">
       <table style="width:100%">
-          <tr *ngFor="let hijo of data.Hijos">
-            <mat-form-field class="children-input"><input matInput [(ngModel)]="hijo.Nombre" placeholder="Nombre"></mat-form-field>
-            <mat-form-field class="children-input"><input matInput [(ngModel)]="hijo.Apellido" placeholder="Apellido"></mat-form-field>
-            <mat-form-field class="children-input"><input matInput [(ngModel)]="hijo.Cuil" placeholder="Cuil"></mat-form-field>
-            <mat-form-field class="children-input"><input matInput [(ngModel)]="hijo.Descripcion" placeholder="Descripcion"></mat-form-field>
+          <tr *ngFor="let hijo of data.hijos">
+            <div *ngIf="(hijo.DeletedAt == null)">
+              <button mat-icon-button class="actions-icon" color="warn" (click)="onClickDeleteChild(hijo)">
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+              <mat-form-field class="children-input"><input matInput [(ngModel)]="hijo.nombre" placeholder="Nombre"></mat-form-field>
+              <mat-form-field class="children-input"><input matInput [(ngModel)]="hijo.apellido" placeholder="Apellido"></mat-form-field>
+              <mat-form-field class="children-input"><input matInput [(ngModel)]="hijo.cuil" placeholder="Cuil"></mat-form-field>
+              <mat-form-field class="children-input"><input matInput [(ngModel)]="hijo.descripcion" placeholder="Descripcion"></mat-form-field>
+              <mat-form-field class="children-input"><input matInput [(ngModel)]="hijo.obrasocialid" placeholder="Obra Social"></mat-form-field>
+            </div>
           </tr>
-          <tfoot>
-             
-          </tfoot>
       </table>
+      <button mat-mini-fab color="accent" class="add-button" (click)="onClickNewChild(data.hijos)">
+        <mat-icon aria-label="Agregar Hijo">add</mat-icon>
+      </button>
     </div>
 
     <mat-divider></mat-divider>

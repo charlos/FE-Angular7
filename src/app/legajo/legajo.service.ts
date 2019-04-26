@@ -8,11 +8,13 @@ export interface LegajosApi {
 
 export interface HijoItem {
   ID: number;
-  Nombre: string;
-  Apellido: string;
-  Codigo: string;
-  Descripcion: string;
-  Cuil: string;
+  nombre: string;
+  apellido: string;
+  codigo: string;
+  descripcion: string;
+  cuil: string;
+  obrasocialid?: number;
+  DeletedAt?: Date;
 }
 
 export interface LegajosItem {
@@ -20,16 +22,16 @@ export interface LegajosItem {
   CreatedAt: string;
   UpdatedAt: string;
   DeletedAt: null,
-  Nombre: string;
-  Apellido: string;
-  Codigo: string;
-  Descripcion: string;
-  Activo: number;
-  Legajo: string;
-  Cuil: string;
-  Cbu: string;
-  Direccion: string;
-  Hijos: [HijoItem]
+  nombre: string;
+  apellido: string;
+  codigo: string;
+  descripcion: string;
+  activo: number;
+  legajo: string;
+  cuil: string;
+  cbu: string;
+  direccion: string;
+  hijos: [HijoItem]
 };
 
 @Injectable({
@@ -39,7 +41,7 @@ export class LegajoService {
   constructor(private http: HttpClient) { }
 
   public async getLegajos(sort: string, order: string, page: number): Promise<LegajosApi> {
-    const token = JSON.parse(localStorage.getItem('currentUser')).Token
+    const token = JSON.parse(localStorage.getItem('currentUser')).token
     const headers = new HttpHeaders()
       .append('token', token)
     const href = '/api/legajo/legajos';
@@ -54,7 +56,7 @@ export class LegajoService {
   }
 
   public async getLegajo(legajoId: number): Promise<LegajosItem> {
-    const token = JSON.parse(localStorage.getItem('currentUser')).Token
+    const token = JSON.parse(localStorage.getItem('currentUser')).token
     const headers = new HttpHeaders()
       .append('token', token)
     const href = '/api/legajo/legajos';
@@ -68,7 +70,7 @@ export class LegajoService {
   }
   
   public async postLegajo(legajo: LegajosItem): Promise<LegajosItem> {
-    const token = JSON.parse(localStorage.getItem('currentUser')).Token
+    const token = JSON.parse(localStorage.getItem('currentUser')).token
     const headers = new HttpHeaders()
       .append('token', token)
     const href = '/api/legajo/legajos';
@@ -77,52 +79,52 @@ export class LegajoService {
 
     let legajosItem: LegajosItem;
     let legajoCompleto = {
-      Nombre: "Carlos",
-      Apellido: "Flores",
-      Codigo: "CARLOSF",
-      Descripcion: "Algooo",
-      Activo: 1,
-      Legajo: "Legajo 1",
-      Cuil: "36548787",
-      Direccion: "Av. Cabildo 2779",
-      Paisid: 1,
-      Provinciaid: 1,
-      Localidadid: 1,
-      Zonaid: 1,
-      Telefono: "212131321312",
-      Email: "cflores@finnegans.com.ar",
-      Modalidadcontratacionid: 1,
-      Categoria: "Categoria 1",
-      Tarea: "Tarea 1",
-      Situacionid: 1,
-      Condicionid: 1,
-      Condicionsiniestradoid: 1,
-      Obrasocialid: 1,
-      Conveniocolectivoid: 1,
-      Valorfijolrt: 20,
-      Conyuge: {
-        Nombre: "Juana",
-        Apellido: "Pereza",
-        Codigo: "JUANA",
-        Descripcion: "",
-        Activo: 1,
-        Cuil: "21121321321",
-        Obrasocialid: 1
-      },
-      Hijos: [
+      nombre: "Carlos",
+      apellido: "Flores",
+      codigo: "CARLOSF",
+      descripcion: "Algooo",
+      activo: 1,
+      legajo: "Legajo 1",
+      cuil: "36548787",
+      direccion: "Av. Cabildo 2779",
+      paisid: 1,
+      provinciaid: 1,
+      localidadid: 1,
+      zonaid: 1,
+      telefono: "212131321312",
+      email: "cflores@finnegans.com.ar",
+      modalidadcontratacionid: 1,
+      categoria: "Categoria 1",
+      tarea: "Tarea 1",
+      situacionid: 1,
+      condicionid: 1,
+      condicionsiniestradoid: 1,
+      obrasocialid: 1,
+      conveniocolectivoid: 1,
+      valorfijolrt: 20,
+      conyuge: [{
+        nombre: "Juana",
+        apellido: "Pereza",
+        codigo: "JUANA",
+        descripcion: "",
+        activo: 1,
+        cuil: "21121321321",
+        obrasocialid: 1
+      }],
+      hijos: [
       ],
-      Remuneracion: 1200,
-      HorasMensualesNormales: "15",
-      Fechaalta: "0000-12-31T20:06:12-03:53",
-      Fechabaja: "0000-12-31T20:06:12-03:53",
-      Centrodecostoid: 1,
-      Cbu: "12333333333333333333333"
+      remuneracion: 1200,
+      horasMensualesNormales: "15",
+      fechaalta: "0000-12-31T20:06:12-03:53",
+      fechabaja: "0000-12-31T20:06:12-03:53",
+      centrodecostoid: 1,
+      cbu: "12333333333333333333333"
     };
-    legajoCompleto.Legajo = legajo.Legajo;
-    legajoCompleto.Nombre = legajo.Nombre;
-    legajoCompleto.Apellido = legajo.Apellido;
-    legajoCompleto.Cbu = legajo.Cbu;
-    legajoCompleto.Hijos = legajo.Hijos;
+    legajoCompleto.legajo = legajo.legajo;
+    legajoCompleto.nombre = legajo.nombre;
+    legajoCompleto.apellido = legajo.apellido;
+    legajoCompleto.cbu = legajo.cbu;
+    legajoCompleto.hijos = legajo.hijos;
 
 
     legajosItem = await this.http.post<LegajosItem>(requestUrl, legajoCompleto, { headers }).toPromise();
@@ -131,7 +133,7 @@ export class LegajoService {
   }
 
   public async putLegajo(legajo: LegajosItem): Promise<LegajosItem> {
-    const token = JSON.parse(localStorage.getItem('currentUser')).Token
+    const token = JSON.parse(localStorage.getItem('currentUser')).token
     const headers = new HttpHeaders()
       .append('token', token)
     const href = '/api/legajo/legajos';
@@ -145,7 +147,7 @@ export class LegajoService {
   }
 
   public async deleteLegajo(legajo: LegajosItem) {
-    const token = JSON.parse(localStorage.getItem('currentUser')).Token
+    const token = JSON.parse(localStorage.getItem('currentUser')).token
     const headers = new HttpHeaders()
       .append('token', token)
     const href = '/api/legajo/legajos';

@@ -1,8 +1,8 @@
 export interface User {
-    Id?: number;
-    Username: string;
-    Pass: string;
-    Tenant?: string;
-    Token?: string;
-    FechaCreacion?: string;
+    id?: number;
+    username: string;
+    pass: string;
+    tenant?: string;
+    token?: string;
+    fechacreacion?: string;
 }

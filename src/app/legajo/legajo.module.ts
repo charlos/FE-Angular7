@@ -17,7 +17,8 @@ import { ActionsComponent } from './legajo-list/actions/actions.component';
     CommonModule,
     FormsModule,
     LegajoRoutingModule,
-    DemoMaterialModule
+    DemoMaterialModule,
+    SharedModule
   ],
   entryComponents: [
     AddLegajoDialog

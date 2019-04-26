@@ -42,8 +42,8 @@ export class ErrorsHandler implements ErrorHandler {
                     router.navigate(['/error'], { queryParams: errorWithContextInfo });
                 });*/
 
-            console.error("Se produjo un Error:");
-            console.error(error);
+            //console.error("Se produjo un Error:");
+            //console.error(error);
             return notificationService.notify(`Error - ${error.message}`);
         }
     }

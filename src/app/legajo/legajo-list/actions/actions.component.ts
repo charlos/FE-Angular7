@@ -36,15 +36,16 @@ export class ActionsComponent implements OnInit {
       CreatedAt: null,
       UpdatedAt: null,
       DeletedAt: null,
-      Nombre: null,
-      Apellido: null,
-      Codigo: null,
-      Descripcion: null,
-      Activo: null,
-      Legajo: null,
-      Cuil: null,
-      Cbu: null,
-      Direccion: null
+      nombre: null,
+      apellido: null,
+      codigo: null,
+      descripcion: null,
+      activo: null,
+      legajo: null,
+      cuil: null,
+      cbu: null,
+      direccion: null,
+      hijos: null
     }
 
     await this.legajoService.deleteLegajo(item);

@@ -52,6 +52,6 @@ table {
 
 .add-button {
   float: right;
-  bottom: 48px;
-  right: 5px;
+  bottom: 15px;
+  right: -30px;
 }
