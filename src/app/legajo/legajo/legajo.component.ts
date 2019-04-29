@@ -63,6 +63,10 @@ export class LegajoComponent implements OnInit, AfterViewInit {
 
   async onClickSave(data: LegajosItem): Promise<LegajosItem> {
     let legajosItem: LegajosItem;
+
+    // se setea el paisID segun Option del selector de paises
+    data.paisid = data.pais.ID;
+
     if (this.id) {
       console.log("Updated Legajo");
       legajosItem = await this.legajoService.putLegajo(data);

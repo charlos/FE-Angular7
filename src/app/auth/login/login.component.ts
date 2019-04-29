@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
     const user:User = {
       username: String(this.emailFormControl.value),
       pass: String(this.passFormControl.value),
+      tenant: 'tnt_41105'
     };
 
     const data = await this.authenticationService.login(user.username, user.pass);

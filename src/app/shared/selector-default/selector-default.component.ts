@@ -4,8 +4,14 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 
 export interface SelectorElement {
-  value: any;
-  viewValue: string;
+  ID: any;
+  nombre: string;
+  codigo?: string;
+  descripcion?: string;
+  CreatedAt?: string;
+  UpdatedAt?: string;
+  DeletedAt?: string;
+  activo?: Number
 }
 
 @Component({
@@ -14,50 +20,72 @@ export interface SelectorElement {
   styleUrls: ['./selector-default.component.css']
 })
 export class SelectorDefaultComponent implements OnInit {
-  @Input() value: number;
+  @Input() value: SelectorElement;
+  @Input('type') tipo: string;
   @Output() optionSelected = new EventEmitter();
 
   myControl = new FormControl();
-  options: SelectorElement[] = [
-    {
-      value: 1, viewValue: 'Argentina'
-    },
-    {
-      value: 2, viewValue: 'Brasil'
-    },
-    {
-      value: 3, viewValue: 'Colombia'
-    }, {
-      value: 4, viewValue: 'Dinamarca'
-    }
-  ];
+  options: SelectorElement[];
 
   filteredOptions: Observable<SelectorElement[]>;
 
   ngOnInit() {
+    switch (this.tipo) {
+      case 'pais':
+        this.options = [
+          {
+            ID: 1, nombre: 'Argentina'
+          },
+          {
+            ID: 2, nombre: 'Brasil'
+          }
+        ]        
+        break;
+      case 'obrasocial':
+        this.options = [
+          {
+            ID: 1, nombre: 'Galeno'
+          },
+          {
+            ID: 2, nombre: 'OSDE'
+          }
+        ]
+        break;
+      default:
+        this.options = [];
+        break;
+    }
+
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith<string | SelectorElement>(''),
-        map(value => typeof value === 'string' ? value : value.viewValue),
+        map(value => typeof value === 'string' ? value : ''),
         map(name => name ? this._filter(name) : this.options.slice())
       );
+    let filter = this.options.filter(option => option.ID == this.value.ID);
+    let option = filter.length>0?filter[0]:null;
+    this.myControl.setValue(option);
+  }
 
-    this.myControl.setValue(this.value);
+  ngAfterViewInit() {
+
   }
 
   displayFn(selectorElement?: SelectorElement): string | undefined {
-    return selectorElement ? selectorElement.viewValue : undefined;
+    return selectorElement ? selectorElement.nombre : undefined;
   }
 
   private _filter(name: string): SelectorElement[] {
     const filterValue = name.toLowerCase();
 
-    return this.options.filter(option => option.viewValue.toLowerCase().indexOf(filterValue) === 0);
+    return this.options.filter(option => option.nombre.toLowerCase().indexOf(filterValue) === 0);
   }
 
   itemSelected(evt: any) {
     const value = evt.option.value;
     console.log(value);
+    this.value.ID = value.ID;
+    this.value.nombre = value.nombre;
     this.optionSelected.emit(value);
   }
 

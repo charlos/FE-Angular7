@@ -19,7 +19,7 @@
     <mat-form-field class="standard-input"><input matInput [(ngModel)]="data.apellido" placeholder="Apellido">
     </mat-form-field>
     <mat-form-field class="standard-input"><input matInput [(ngModel)]="data.cbu" placeholder="CBU"></mat-form-field>
-    <app-selector-default [value] ="{value: data.pais.ID, viewValue: data.pais.nombre}"></app-selector-default>
+    <app-selector-default type="pais" [value]="data.pais"></app-selector-default>
 
     <mat-divider></mat-divider>
 

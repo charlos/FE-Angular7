@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { SelectorElement } from '../shared/selector-default/selector-default.component';
 
 export interface LegajosApi {
   items: LegajosItem[];
@@ -31,6 +32,10 @@ export interface LegajosItem {
   cuil: string;
   cbu: string;
   direccion: string;
+  // selector
+  pais?: SelectorElement,
+  paisid: Number,
+  // items 
   hijos: [HijoItem]
 };
 

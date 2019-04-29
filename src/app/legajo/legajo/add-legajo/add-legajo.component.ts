@@ -56,7 +56,8 @@ export class AddLegajoComponent {
       cuil: null,
       cbu: null,
       direccion: null,
-      hijos: null
+      hijos: null,
+      paisid: null
     }
 
     await this.legajoService.deleteLegajo(item);

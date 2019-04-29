@@ -27,6 +27,7 @@ export class AuthService {
     const body = new HttpParams()
       .set('username', username)
       .set('pass', password)
+      .set('tenant', 'tnt_41105')
 
     let data = await this.httpClient.post<any>(`api/auth/login`, body.toString(), { headers }).toPromise();
     console.log(data);
