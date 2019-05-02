@@ -1,4 +1,5 @@
-import { LegajosItem, LegajosApi, LegajoService, HijoItem } from '../legajo.service';
+import { ListaItems, LegajoService } from '../legajo.service';
+import { Legajo, Hijo } from '../legajo.model';
 import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -15,7 +16,7 @@ import { SelectorDefaultComponent } from 'src/app/shared/selector-default/select
   styleUrls: ['./legajo.component.css']
 })
 export class LegajoComponent implements OnInit, AfterViewInit {
-  public currentLegajo$: Observable<LegajosItem> = null;
+  public currentLegajo$: Observable<Legajo> = null;
   paises: any[];
   id: number;
 
@@ -61,8 +62,8 @@ export class LegajoComponent implements OnInit, AfterViewInit {
     this.gotoGrilla();
   }
 
-  async onClickSave(data: LegajosItem): Promise<LegajosItem> {
-    let legajosItem: LegajosItem;
+  async onClickSave(data: Legajo): Promise<Legajo> {
+    let legajosItem: Legajo;
 
     // se setea el paisID segun Option del selector de paises
     data.paisid = data.pais.ID;
@@ -81,7 +82,7 @@ export class LegajoComponent implements OnInit, AfterViewInit {
     return legajosItem;
   }
 
-  onClickNewChild(children: HijoItem[]) {
+  onClickNewChild(children: Hijo[]) {
     children.push({
       ID: null,
       nombre: null,
@@ -93,7 +94,7 @@ export class LegajoComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onClickDeleteChild(child: HijoItem) {
+  onClickDeleteChild(child: Hijo) {
     child.DeletedAt = new Date();
   }
 }

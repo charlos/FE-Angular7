@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SelectorElement } from '../shared/selector-default/selector-default.component';
+import { Legajo } from './legajo.model';
 
-export interface LegajosApi {
-  items: LegajosItem[];
+export interface ListaItems {
+  items: any[];
   total_count: number;
 }
 
-export interface HijoItem {
+/*export interface HijoItem {
   ID: number;
   nombre: string;
   apellido: string;
@@ -37,53 +38,42 @@ export interface LegajosItem {
   paisid: Number,
   // items 
   hijos: [HijoItem]
-};
+};*/
 
 @Injectable({
   providedIn: 'root'
 })
 export class LegajoService {
+  href = '/api/legajo/legajos';
+  
   constructor(private http: HttpClient) { }
 
-  public async getLegajos(sort: string, order: string, page: number): Promise<LegajosApi> {
-    const token = JSON.parse(localStorage.getItem('currentUser')).token
-    const headers = new HttpHeaders()
-      .append('token', token)
-    const href = '/api/legajo/legajos';
+  public async getLegajos(sort: string, order: string, page: number): Promise<ListaItems> {
     const requestUrl =
-      `${href}`;
+      `${this.href}`;
 
-    let legajosApi: LegajosApi = { items: null, total_count: null };
-    legajosApi.items = await this.http.get<LegajosItem[]>(requestUrl, { headers }).toPromise();
-    legajosApi.total_count = legajosApi.items.length;
+    let listaItems: ListaItems = { items: null, total_count: null };
+    listaItems.items = await this.http.get<Legajo[]>(requestUrl).toPromise();
+    listaItems.total_count = listaItems.items.length;
 
-    return legajosApi;
+    return listaItems;
   }
 
-  public async getLegajo(legajoId: number): Promise<LegajosItem> {
-    const token = JSON.parse(localStorage.getItem('currentUser')).token
-    const headers = new HttpHeaders()
-      .append('token', token)
-    const href = '/api/legajo/legajos';
+  public async getLegajo(legajoId: number): Promise<Legajo> {
     const requestUrl =
-      `${href}/${legajoId}`;
+      `${this.href}/${legajoId}`;
 
-    let legajosItem: LegajosItem;
-    legajosItem  = await this.http.get<LegajosItem>(requestUrl, { headers }).toPromise();
+    let legajo: Legajo;
+    legajo  = await this.http.get<Legajo>(requestUrl).toPromise();
 
-    return legajosItem;
+    return legajo;
   }
   
-  public async postLegajo(legajo: LegajosItem): Promise<LegajosItem> {
-    const token = JSON.parse(localStorage.getItem('currentUser')).token
-    const headers = new HttpHeaders()
-      .append('token', token)
-    const href = '/api/legajo/legajos';
+  public async postLegajo(legajo: Legajo): Promise<Legajo> {
     const requestUrl =
-      `${href}`;
+      `${this.href}`;
 
-    let legajosItem: LegajosItem;
-    let legajoCompleto = {
+    let legajoCompleto: Legajo = {
       nombre: "Carlos",
       apellido: "Flores",
       codigo: "CARLOSF",
@@ -116,10 +106,9 @@ export class LegajoService {
         cuil: "21121321321",
         obrasocialid: 1
       }],
-      hijos: [
-      ],
+      hijos: null,
       remuneracion: 1200,
-      horasMensualesNormales: "15",
+      horasmensualesnormales: "15",
       fechaalta: "0000-12-31T20:06:12-03:53",
       fechabaja: "0000-12-31T20:06:12-03:53",
       centrodecostoid: 1,
@@ -132,34 +121,25 @@ export class LegajoService {
     legajoCompleto.hijos = legajo.hijos;
 
 
-    legajosItem = await this.http.post<LegajosItem>(requestUrl, legajoCompleto, { headers }).toPromise();
+    legajo = await this.http.post<Legajo>(requestUrl, legajoCompleto).toPromise();
 
-    return legajosItem;
+    return legajo;
   }
 
-  public async putLegajo(legajo: LegajosItem): Promise<LegajosItem> {
-    const token = JSON.parse(localStorage.getItem('currentUser')).token
-    const headers = new HttpHeaders()
-      .append('token', token)
-    const href = '/api/legajo/legajos';
+  public async putLegajo(legajo: Legajo): Promise<Legajo> {
     const requestUrl =
-      `${href}/${legajo.ID}`;
+      `${this.href}/${legajo.ID}`;
 
-    let legajosItem: LegajosItem;
-    legajosItem = await this.http.put<LegajosItem>(requestUrl, legajo, { headers }).toPromise();
+    const new_legajo = await this.http.put<Legajo>(requestUrl, legajo).toPromise();
 
-    return legajosItem;
+    return new_legajo;
   }
 
-  public async deleteLegajo(legajo: LegajosItem) {
-    const token = JSON.parse(localStorage.getItem('currentUser')).token
-    const headers = new HttpHeaders()
-      .append('token', token)
-    const href = '/api/legajo/legajos';
+  public async deleteLegajo(legajo: Legajo) {
     const requestUrl =
-      `${href}/${legajo.ID}`;
+      `${this.href}/${legajo.ID}`;
 
-    let res = await this.http.delete(requestUrl, { headers }).toPromise();
+    let res = await this.http.delete(requestUrl).toPromise();
     return res;
   }
 }

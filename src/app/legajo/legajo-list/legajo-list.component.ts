@@ -1,4 +1,5 @@
-import { LegajosItem, LegajosApi, LegajoService } from '../legajo.service';
+import { ListaItems, LegajoService } from '../legajo.service';
+import { Legajo } from '../legajo.model';
 import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -14,7 +15,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class LegajoListComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['ID', 'Creado', 'Nombre', 'Legajo', 'Acciones'];
-  dataSource: MatTableDataSource<LegajosItem> = new MatTableDataSource<LegajosItem>();
+  dataSource: MatTableDataSource<Legajo> = new MatTableDataSource<Legajo>();
   //data: LegajosApi;
 
   resultsLength = 0;
@@ -23,7 +24,7 @@ export class LegajoListComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatSort) sort: MatSort;
   legajoID$: Observable<String>;
-  public currentLegajo$: Observable<LegajosItem> = null;
+  public currentLegajo$: Observable<Legajo> = null;
   id: number;
 
 
@@ -47,35 +48,35 @@ export class LegajoListComponent implements OnInit, AfterViewInit {
   async ngAfterViewInit() {
 
       //this.isLoadingResults = false;
-      const legajosApi: LegajosApi = await this.legajoService.getLegajos(this.sort.active, this.sort.direction, 1);
-      this.dataSource = new MatTableDataSource<LegajosItem>(legajosApi.items);
+      const legajosApi: ListaItems = await this.legajoService.getLegajos(this.sort.active, this.sort.direction, 1);
+      this.dataSource = new MatTableDataSource<Legajo>(legajosApi.items);
       this.isLoadingResults = false;
 
   }
 
-  onCreate(item: LegajosItem) {
+  onCreate(item: Legajo) {
     console.log("Created Item: " + item.ID);
     this.dataSource.data.push(item);
 
-    this.dataSource = new MatTableDataSource<LegajosItem>(this.dataSource.data);
+    this.dataSource = new MatTableDataSource<Legajo>(this.dataSource.data);
   }
 
-  onUpdate(item: LegajosItem) {
+  onUpdate(item: Legajo) {
     console.log("Updated Item: " + item.ID);
     this.dataSource.data.forEach(function (el, index) {
       if (el.ID == item.ID) this.dataSource.data.splice(index, 1, item);
     }, this);
 
-    this.dataSource = new MatTableDataSource<LegajosItem>(this.dataSource.data);
+    this.dataSource = new MatTableDataSource<Legajo>(this.dataSource.data);
   }
 
-  onDelete(item: LegajosItem) {
+  onDelete(item: Legajo) {
     console.log("Deleted Item: " + item.ID);
     this.dataSource.data.forEach(function (el, index) {
       if (el.ID == item.ID) this.dataSource.data.splice(index, 1);
     }, this);
 
-    this.dataSource = new MatTableDataSource<LegajosItem>(this.dataSource.data);
+    this.dataSource = new MatTableDataSource<Legajo>(this.dataSource.data);
   }
 
   refreshTableSorce() {

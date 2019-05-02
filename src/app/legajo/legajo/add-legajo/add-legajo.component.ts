@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, Inject, Input, Output, EventEmitter } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { LegajosItem, LegajosApi, LegajoService } from '../../legajo.service';
+import { ListaItems, LegajoService } from '../../legajo.service';
+import { Legajo } from '../../legajo.model';
 
 /*export interface DialogData {
   legajoId: number;
@@ -17,8 +18,8 @@ import { LegajosItem, LegajosApi, LegajoService } from '../../legajo.service';
 })
 export class AddLegajoComponent {
   @Input() legajo: number;
-  @Output() public update = new EventEmitter<LegajosItem>();
-  @Output() public delete = new EventEmitter<LegajosItem>();
+  @Output() public update = new EventEmitter<Legajo>();
+  @Output() public delete = new EventEmitter<Legajo>();
   numeroLegajo: string;
   conductor: string;
   fecha: string;
@@ -42,7 +43,7 @@ export class AddLegajoComponent {
   }
 
   async deleteItem() {
-    const item: LegajosItem = { 
+    const item: Legajo = {
       ID: this.legajo,
       CreatedAt: null,
       UpdatedAt: null,
@@ -57,7 +58,27 @@ export class AddLegajoComponent {
       cbu: null,
       direccion: null,
       hijos: null,
-      paisid: null
+      paisid: null,
+      localidadid: null,
+      provinciaid: null,
+      zonaid: null,
+      telefono: null,
+      email: null,
+      modalidadcontratacionid: null,
+      categoria: null,
+      tarea: null,
+      situacionid: null,
+      condicionid: null,
+      condicionsiniestradoid: null,
+      obrasocialid: null,
+      conveniocolectivoid: null,
+      valorfijolrt: null,
+      conyuge: null,
+      remuneracion: null,
+      horasmensualesnormales: null,
+      fechaalta: null,
+      fechabaja: null,
+      centrodecostoid: null
     }
 
     await this.legajoService.deleteLegajo(item);
@@ -72,11 +93,11 @@ export class AddLegajoComponent {
   styleUrls: ['./add-legajo.component.css'],
 })
 export class AddLegajoDialog implements AfterViewInit{
-  @Output() public create = new EventEmitter<LegajosItem>();
+  @Output() public create = new EventEmitter<Legajo>();
 
   constructor(
     public dialogRef: MatDialogRef<AddLegajoDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: LegajosItem,
+    @Inject(MAT_DIALOG_DATA) public data: Legajo,
     private legajoService: LegajoService
   ) { 
 
@@ -87,7 +108,7 @@ export class AddLegajoDialog implements AfterViewInit{
     if (this.data.ID) {
       console.log("Nro. Legajo: " + this.data.ID);
       
-      const legajosItem: LegajosItem = await this.legajoService.getLegajo(this.data.ID);
+      const legajosItem: Legajo = await this.legajoService.getLegajo(this.data.ID);
       this.data = legajosItem;
     
     }
@@ -98,8 +119,8 @@ export class AddLegajoDialog implements AfterViewInit{
     this.dialogRef.close();
   }
 
-  async onClickSave(): Promise<LegajosItem> {
-    let legajosItem: LegajosItem;
+  async onClickSave(): Promise<Legajo> {
+    let legajosItem: Legajo;
     if (this.data.ID) {
       legajosItem = await this.legajoService.putLegajo(this.data);
     } else {

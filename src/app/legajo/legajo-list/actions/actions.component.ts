@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, Inject, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { LegajosItem, LegajosApi, LegajoService } from '../../legajo.service';
+import { ListaItems, LegajoService } from '../../legajo.service';
+import { Legajo } from '../../legajo.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,8 +11,8 @@ import { Router } from '@angular/router';
 })
 export class ActionsComponent implements OnInit {
   @Input() legajo: number;
-  @Output() public update = new EventEmitter<LegajosItem>();
-  @Output() public delete = new EventEmitter<LegajosItem>();
+  @Output() public update = new EventEmitter<Legajo>();
+  @Output() public delete = new EventEmitter<Legajo>();
   numeroLegajo: string;
   conductor: string;
   fecha: string;
@@ -31,7 +32,7 @@ export class ActionsComponent implements OnInit {
   }
 
   async deleteItem() {
-    const item: LegajosItem = {
+    const item: Legajo = {
       ID: this.legajo,
       CreatedAt: null,
       UpdatedAt: null,
@@ -46,7 +47,27 @@ export class ActionsComponent implements OnInit {
       cbu: null,
       direccion: null,
       hijos: null,
-      paisid: null
+      paisid: null,
+      localidadid: null,
+      provinciaid: null,
+      zonaid: null,
+      telefono: null,
+      email: null,
+      modalidadcontratacionid: null,
+      categoria: null,
+      tarea: null,
+      situacionid: null,
+      condicionid: null,
+      condicionsiniestradoid: null,
+      obrasocialid: null,
+      conveniocolectivoid: null,
+      valorfijolrt: null,
+      conyuge: null,
+      remuneracion: null,
+      horasmensualesnormales: null,
+      fechaalta: null,
+      fechabaja: null,
+      centrodecostoid: null
     }
 
     await this.legajoService.deleteLegajo(item);
