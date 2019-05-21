@@ -20,6 +20,7 @@ export interface SelectorElement {
   styleUrls: ['./selector-default.component.css']
 })
 export class SelectorDefaultComponent implements OnInit {
+  @Input() placeholder: string = 'Seleccione una opción';
   @Input() value: SelectorElement;
   @Input('type') tipo: string;
   @Output() optionSelected = new EventEmitter();
@@ -31,26 +32,46 @@ export class SelectorDefaultComponent implements OnInit {
 
   ngOnInit() {
     switch (this.tipo) {
+      case 'localidad':
+        this.placeholder = "Seleccione una localidad";
+        this.options = [{ ID: 1, nombre: 'Argentina' },{ ID: 2, nombre: 'Brasil' }];
+        break;
+      case 'provincia':
+        this.placeholder = "Seleccione una provincia";
+        this.options = [{ ID: 1, nombre: 'Argentina' }, { ID: 2, nombre: 'Brasil' }];
+        break;
       case 'pais':
-        this.options = [
-          {
-            ID: 1, nombre: 'Argentina'
-          },
-          {
-            ID: 2, nombre: 'Brasil'
-          }
-        ]        
+        this.placeholder = "Seleccione un país";
+        this.options = [{ ID: 1, nombre: 'Argentina' }, { ID: 2, nombre: 'Brasil' }];      
+        break;
+      case 'modalidadcontratacion':
+        this.placeholder = "Seleccione modalidad de contratación";
+        this.options = [{ ID: 1, nombre: 'Argentina' }, { ID: 2, nombre: 'Brasil' }];
+        break;
+      case 'situacion':
+        this.placeholder = "Seleccione situación";
+        this.options = [{ ID: 1, nombre: 'Argentina' }, { ID: 2, nombre: 'Brasil' }];
+        break;
+      case 'condicion':
+        this.placeholder = "Seleccione condición";
+        this.options = [{ ID: 1, nombre: 'Argentina' }, { ID: 2, nombre: 'Brasil' }];
+        break;
+      case 'condicionsiniestrado':
+        this.placeholder = "Seleccione condición siniestrado";
+        this.options = [{ ID: 1, nombre: 'Argentina' }, { ID: 2, nombre: 'Brasil' }];
         break;
       case 'obrasocial':
-        this.options = [
-          {
-            ID: 1, nombre: 'Galeno'
-          },
-          {
-            ID: 2, nombre: 'OSDE'
-          }
-        ]
+        this.placeholder = "Seleccione una obra social";
+        this.options = [{ ID: 1, nombre: 'Argentina' }, { ID: 2, nombre: 'Brasil' }];
         break;
+      case 'conveniocolectivo':
+        this.placeholder = "Seleccione convenio colectivo";
+        this.options = [{ ID: 1, nombre: 'Argentina' }, { ID: 2, nombre: 'Brasil' }];
+        break;  
+      case 'centrodecosto':
+        this.placeholder = "Seleccione centro de costo";
+        this.options = [{ ID: 1, nombre: 'Argentina' }, { ID: 2, nombre: 'Brasil' }];
+        break;                
       default:
         this.options = [];
         break;

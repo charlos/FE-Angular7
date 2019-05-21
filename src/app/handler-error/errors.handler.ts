@@ -43,7 +43,7 @@ export class ErrorsHandler implements ErrorHandler {
                 });*/
 
             //console.error("Se produjo un Error:");
-            //console.error(error);
+            console.error(error);
             return notificationService.notify(`Error - ${error.message}`);
         }
     }

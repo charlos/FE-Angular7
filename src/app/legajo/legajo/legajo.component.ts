@@ -83,6 +83,7 @@ export class LegajoComponent implements OnInit, AfterViewInit {
   }
 
   onClickNewChild(children: Hijo[]) {
+    //if(children == null) children = [];
     children.push({
       ID: null,
       nombre: null,
@@ -94,7 +95,7 @@ export class LegajoComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onClickDeleteChild(child: Hijo) {
+  onClickDeleteChild(child: any) {
     child.DeletedAt = new Date();
   }
 }
